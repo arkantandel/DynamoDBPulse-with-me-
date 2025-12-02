@@ -1,5 +1,3 @@
-
-
 # DynamoDBForge
 
 ---
@@ -9,7 +7,7 @@
 **DynamoDBForge** is a high-performance, scalable, and fully managed NoSQL database repository built on AWS DynamoDB.
 It focuses on speed, flexibility, and reliability for modern cloud applications.
 
-This repository demonstrates **key DynamoDB concepts**, **best practices**, and **hands-on implementations** for real-world usage. It is ideal for developers, cloud engineers, and data enthusiasts looking to master NoSQL databases with AWS.
+This repository demonstrates **key DynamoDB concepts**, **best practices**, and **hands-on implementations** for real-world usage.
 
 ---
 
@@ -113,12 +111,14 @@ aws dynamodb delete-item \
 
 ---
 
-## 📊 DynamoDB Table Structure Diagram
+## 📊 DynamoDB Diagrams
+
+### 1️⃣ Table & Stream Workflow
 
 ```mermaid
 erDiagram
     DYNAMODB_TABLE {
-        string ID PK "Partition Key"
+        string ID PK
         string Name
         string Role
         string CreatedAt
@@ -127,11 +127,41 @@ erDiagram
     STREAMS ||--o{ LAMBDA_FUNCTION : triggers
 ```
 
+### 2️⃣ Global Table Multi-Region Setup
+
+```mermaid
+graph LR
+    Table_US["DynamoDB Table - US East"]
+    Table_EU["DynamoDB Table - EU West"]
+    Table_AP["DynamoDB Table - AP Southeast"]
+
+    Table_US ---|replicates| Table_EU
+    Table_US ---|replicates| Table_AP
+    Table_EU ---|replicates| Table_US
+    Table_AP ---|replicates| Table_US
+```
+
+### 3️⃣ Serverless Event-Driven Flow
+
+```mermaid
+graph TD
+    Client["App / API Request"]
+    DynamoDB["DynamoDB Table"]
+    Stream["DynamoDB Stream"]
+    Lambda["AWS Lambda Function"]
+    S3["S3 / Analytics / Notification"]
+
+    Client --> DynamoDB
+    DynamoDB --> Stream
+    Stream --> Lambda
+    Lambda --> S3
+```
+
 **Explanation:**
 
-* `DYNAMODB_TABLE` represents your main table.
-* `STREAMS` capture real-time changes.
-* `LAMBDA_FUNCTION` triggers on data changes for serverless workflows.
+* **Diagram 1:** Shows table → streams → Lambda workflow.
+* **Diagram 2:** Shows multi-region replication with global tables.
+* **Diagram 3:** Demonstrates serverless event-driven architecture using streams and Lambda.
 
 ---
 
@@ -149,3 +179,4 @@ erDiagram
 **GitHub:** [arkantandel](https://github.com/arkantandel)
 **LinkedIn:** [Arkan Tandel](https://www.linkedin.com/in/arkantandel)
 
+**Made with ❤️ and DynamoDB power!**
