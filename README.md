@@ -179,4 +179,4 @@ graph TD
 **GitHub:** [arkantandel](https://github.com/arkantandel)
 **LinkedIn:** [Arkan Tandel](https://www.linkedin.com/in/arkantandel)
 
-**Made with ❤️ and DynamoDB power!**
+
